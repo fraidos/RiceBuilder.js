@@ -1,5 +1,7 @@
 #!/usr/bin/node
 
+fsWorker = require('fs');
+
 const VERSION = "0.1.0a";
 
 var cl = function() {
@@ -101,17 +103,29 @@ var splitFunc = function(token) {
 
 }
 
-var expr = "s(t(p), p) + b(t + k)+t+c+'some strng'+k(fg(test + rt) + rt)";
-var parsedObj = tokParser( expr, "+" );
+function readArg(argKey) {
+	let ret = '';
 
-cl(
-		expr, 
-		parsedObj, 
+	process.argv.forEach(function (arg) {
+	  if (arg.indexOf(argKey + '=') != -1)
+	  	ret = arg.split('=')[1];
+	});
 
-		tokParser( expr,      "+", "check"), 
-		tokParser("a(b + c)", "+", "check")  
-);
+	return ret;
+}
 
-cl(
-		splitFunc(parsedObj[0])
-)
+function loadThemeConf(themeName) {
+	return JSON.parse(
+		fsWorker
+			.readFileSync(themeName + '/conf.json')
+			.toString()
+	);
+}
+
+// Functional
+
+let themeName  = readArg('theme');
+let themeConf  = loadThemeConf(themeName);
+let themeLogic = tokParser( themeConf.resultString, "+" );
+
+cl(themeLogic)
