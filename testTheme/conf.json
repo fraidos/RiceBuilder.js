@@ -1,0 +1,24 @@
+{
+
+  "colors": {
+    "SexyRed":   "#BE4248",
+    "SexyBlue":  "#4A89AA",
+    "SexyWhite": "#FFFFFF",
+    "SexyBg":    "#21374B"
+  },
+  "includeModules": ["i3-workspaces", "mocp", "uptime", "la", "date", "time"],
+  "formattings": {
+    "bar":        "$1",
+    "LeftSide":   "%{l}$1",
+    "RightSide":  "%{r}$1",
+    "CenterSide": "%{c}$1",
+    "BgColor":    "%{B$1}$2%{B}",
+    "FgColor":    "%{F$1}$2%{F}"
+  },
+  "additionalChars": {
+    "isSpace": " ",
+    "name": "KugiStation"
+  },
+  "resultString": "bar( LeftSide( BgColor(SexyBg, name) + BgColor(SexyBg, 'i3-workspaces') + BgColor(SexyBlue, 'mocp') ) + RightSide(arg) )"
+
+}
